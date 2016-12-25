@@ -29,6 +29,8 @@
     
     [self.view addSubview:self.webView];
 }
+
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
     self.jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
@@ -62,15 +64,36 @@
 
 }
 
--(NSString *)getUserInfo
+//-(NSString *)getUserInfo
+//{
+////    NSLog(@"MZ");
+//    
+//    return @"'{\"name\":\"%@\",\"idno\":\"%@\",\"mobile\":\"%@\"}'";
+//
+//    
+//}
+
+-(void)getUserInfo
 {
-//    NSLog(@"MZ");
+    [self getUserInfoMess];
+}
+
+- (NSString *)getUserInfoMess
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    dict[@"name"] = @"name";
+    dict[@"idno"] = @"idno";
+    dict[@"mobile"] = @"mobile";
     
-    return @"'{\"name\":\"%@\",\"idno\":\"%@\",\"mobile\":\"%@\"}'";
+    NSError *parseError = nil;
     
-//    return @"mz";
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {
