@@ -32,9 +32,24 @@
     
     [self.view addSubview:self.rrxWebView];
     
-     NSString *path = @"http://h5.crawler.rrx360.com/?rrx_token=rrx_token";
+//    http://api.crawlertest.rrx360.com/h5/?rrx_token=f2a884d4-c95e-11e6-92dc-acbc32839867
     
+//     NSString *path = @"http://h5.crawler.rrx360.com/?rrx_token=rrx_token";
+    
+    NSString *path = @"http://h5.crawler.rrx360.com/?rrx_token=rrx_token";
+
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:path]];
+    
+    self.jsContext = [self.rrxWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    
+    self.jsContext[@"rrx"] = self;
+    self.jsContext.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+        context.exception = exceptionValue;
+        
+        NSLog(@"异常信息：%@", exceptionValue);
+        
+    };
+
     
     [self.rrxWebView loadRequest:request];
     
@@ -49,20 +64,28 @@
     
     NSString *currentURL = [self.rrxWebView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
-       NSString *jsonStr = [self getUserInfoMess];
+       NSString *jsonStr = [self getUserInfo];
     
        NSString *js = [NSString stringWithFormat:JsStr,jsonStr];
     
        [self.rrxWebView stringByEvaluatingJavaScriptFromString:js];
     
-    self.jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    self.jsContext[@"rrx"] = self;
-    self.jsContext.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
-        context.exception = exceptionValue;
-        NSLog(@"异常信息：%@", exceptionValue);
-    };
+//    self.jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//    self.jsContext[@"rrx"] = self;
+//    self.jsContext.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+//        context.exception = exceptionValue;
+//        
+//        NSLog(@"异常信息：%@", exceptionValue);
+//        
+//    };
 
     NSLog(@"\ncurrentURL:%@\njsonStr:%@\n",currentURL,jsonStr);
+    
+//    NSString *str = [NSString stringWithFormat:@"$('#rrx_content').text('mengzhe，1856262，3689896658')"];
+//    
+//    [self.rrxWebView stringByEvaluatingJavaScriptFromString:str];
+    
+
     
 }
 
@@ -77,14 +100,14 @@
 //}
 //
 
--(NSString *)getUserInfo
-{
-    return @"'{\"name\":\"name\",\"idno\":\"dno\",\"mobile\":\"mobile\"}'";
+//-(NSString *)getUserInfo
+//{
+//    return @"'{\"name\":\"name\",\"idno\":\"dno\",\"mobile\":\"mobile\"}'";
+//
+//}
 
-}
 
-
-- (NSString *)getUserInfoMess
+- (NSString *)getUserInfo
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"name"] = @"name";
