@@ -19,7 +19,7 @@ function AppTrancelate(){
 
 
 function viewDidLoad() {
-  didViewLoad("js给OC传入传出");
+  didViewLoad("js给OC传入");
 }
 
 function show(str1){

@@ -38,6 +38,21 @@
     //demo
     JSContext * context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
+    context[@"didViewLoad"] = ^(){
+        NSLog(@"js调用--ViewdidLoad");
+        NSArray *args = [JSContext currentArguments];
+        for (JSValue *jsVal in args) {
+            NSLog(@"%@", jsVal);
+        }
+        
+        /**oc给js传入函数值*/
+        NSString * func = [NSString stringWithFormat:@"show('%@');",@"OC后台传入数据"];
+        [self.webView stringByEvaluatingJavaScriptFromString:func];
+        
+
+    };
+
+    
     /**js调用oc*/
     context[@"sendTextStr"] = ^(){
         NSLog(@"js调用");
@@ -47,19 +62,6 @@
         }
     };
     
-    
-    context[@"didViewLoad"] = ^(){
-        NSLog(@"js调用--ViewdidLoad");
-        NSArray *args = [JSContext currentArguments];
-        for (JSValue *jsVal in args) {
-            NSLog(@"%@", jsVal);
-        }
-    };
-    
-    /**oc给js传入函数值*/
-    NSString * func = [NSString stringWithFormat:@"show('%@');",@"OC后台传入数据"];
-    [self.webView stringByEvaluatingJavaScriptFromString:func];
-
     
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView {

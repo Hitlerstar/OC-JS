@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>测试IOS与JS之前的互调</title>
+    <style type="text/css">
+      * {
+        font-size: 40px;
+      }
+    </style>
+    <script type="text/javascript">
+      
+      var jsFunc = function() {
+        alert('Objective-C call js to show alert');
+        // 不会调用，因此OCModel并不存在
+        OCModel.showAlertMsg('js title', 'js message');
+      }
+    
+    var jsParamFunc = function(argument) {
+      document.getElementById('jsParamFuncSpan').innerHTML
+      = argument['name'];
+    }
+    
+      </script>
+    
+  </head>
+  
+  <body>
+    
+    <div style="margin-top: 100px">
+      <h1>Another page</h1>
+      <input type="button" value="getToken" onclick="alert(nativeObj.getToken())">
+        <input type="button" value="Call ObjC system alert" onclick="nativeObj.showAlertMsg('js title', 'js message')">
+    </div>
+    
+    <div>
+      <input type="button" value="Call ObjC func with JSON " onclick="nativeObj.callWithDict({'name': 'testname', 'age': 10, 'height': 170})">
+        <input type="button" value="Call ObjC func with JSON and ObjC call js func to pass args." onclick="nativeObj.jsCallObjcAndObjcCallJsWithDict({'name': 'testname', 'age': 10, 'height': 170})">
+    </div>
+    <a href="test.html">back to previous page</a>
+    
+    <div>
+      <span id="jsParamFuncSpan" style="color: red; font-size: 50px;"></span>
+    </div>
+    
+<!--   调用失败，因此此时还没有注入OCModel对象 -->
+<script text="javascript">jsFunc();</script>
+  </body>
+</html>

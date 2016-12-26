@@ -1,0 +1,5 @@
+
+platform :ios, '10.12‘
+target 'BSWJsH5Demo' do
+pod 'AFNetworking', '3.0.0'
+end

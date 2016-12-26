@@ -53,7 +53,7 @@
 
 - (void)getCall:(NSString *)callString{
     
-    NSLog(@"Get:%@", callString);
+    NSLog(@"MZ-打印OC传递给JS的参数:%@", callString);
     // 成功回调js的方法Callback
     JSValue *Callback = self.jsContext[@"Callback"];
     [Callback callWithArguments:@[@"MZ唤起本地OC回调完成"]];
@@ -64,19 +64,18 @@
 
 }
 
-//-(NSString *)getUserInfo
-//{
-////    NSLog(@"MZ");
-//    
-//    return @"'{\"name\":\"%@\",\"idno\":\"%@\",\"mobile\":\"%@\"}'";
-//
-//    
-//}
-
--(void)getUserInfo
+-(NSString *)getUserInfo
 {
-    [self getUserInfoMess];
+//    NSLog(@"MZ");
+    
+    return @"'{\"name\":\"%@\",\"idno\":\"%@\",\"mobile\":\"%@\"}'";
+
 }
+
+//-(void)getUserInfo
+//{
+//    [self getUserInfoMess];
+//}
 
 - (NSString *)getUserInfoMess
 {

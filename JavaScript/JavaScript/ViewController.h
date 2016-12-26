@@ -14,8 +14,8 @@
 - (void)call;
 - (void)getCall:(NSString *)callString;
 
-//-(NSString *)getUserInfo;
--(void)getUserInfo;
+-(NSString *)getUserInfo;
+//-(void)getUserInfo;
 
 
 @end
