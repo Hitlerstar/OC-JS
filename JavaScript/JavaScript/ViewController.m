@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#define JsStr @"var rrx = {}; (function initialize() {rrx.getUserInfo = function() { return '%@';};})();"
+
 
 @interface ViewController ()
 
@@ -39,6 +41,19 @@
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);
     };
+    
+    
+    //调用插入一段代码
+//    NSString *str = @"'{\"name\":\"%@\",\"idno\":\"%@\",\"mobile\":\"%@\"}'";
+//    
+//    
+//    NSString *jsStr = [NSString stringWithFormat:JsStr,str];
+//    
+//    [self.webView stringByEvaluatingJavaScriptFromString:jsStr];
+    
+    
+    [self.webView stringByEvaluatingJavaScriptFromString:@"rrx.getUserInfo() = function(){return '{\'name\':\'name\',\'idno\':\"idno\',\'mobile\':\'mobile\'}'};"];
+
 }
 
 
