@@ -1,7 +1,0 @@
- platform :ios, '10.12‘
-target 'tableViewText' do
-pod 'AFNetworking'
-pod ‘SDWebImage’
-pod 'GTMBase64'
-
-end
